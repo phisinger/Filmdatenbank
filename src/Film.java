@@ -9,10 +9,12 @@ public class Film {
     private Date erscheinungsdatum;
     private int stimmen;
     private float bewertung;
+    private int[] schauspieler;
+    private int[] regisseure;
 
 
 //    Konstruktor
-    public void Film(int id, String titel, String beschreibeung, String genre, Date erscheinungsdatum, int stimmen, float bewertung)
+    public Film(int id, String titel, String beschreibeung, String genre, Date erscheinungsdatum, int stimmen, float bewertung)
     {
         this.id = id;
         this.titel = titel;
@@ -77,5 +79,21 @@ public class Film {
 
     public void setStimmen(int stimmen) {
         this.stimmen = stimmen;
+    }
+
+    public int[] getSchauspieler() {
+        return schauspieler;
+    }
+
+    public void setSchauspieler(int[] schauspieler) {
+        this.schauspieler = schauspieler;
+    }
+
+    public int[] getRegisseure() {
+        return regisseure;
+    }
+
+    public void setRegisseure(int[] regisseure) {
+        this.regisseure = regisseure;
     }
 }

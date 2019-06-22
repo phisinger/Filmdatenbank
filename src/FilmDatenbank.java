@@ -2,10 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FilmDatenbank {
 
-    void einlesen(String path) {
+    void einlesen() {
 
 //        Name der der Filmdaten-Datei
         String fileName = "daten.db";
@@ -17,29 +20,57 @@ public class FilmDatenbank {
 
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+            int entity = 0;
+
             while((line = bufferedReader.readLine()) != null) {
-//                Die Daten verarbeiten
+                if(line.contains("New_Entity")) {
+                    entity++;
+                    continue;
+                }
+
+
+                String[] strings = line.split("\"");
+                for(int i = 1; i <= strings.length; i++) {
+                    strings[i] = strings[i].trim();
+                }
+                int id = Integer.parseInt(strings[1]);
+
+                switch(entity) {
+//                    Actors
+                    case 1:
+                        new Schauspieler(id, strings[3]);
+                        break;
+//                    Films
+                    case 2:
+                        SimpleDateFormat dateclass = new SimpleDateFormat ("yyyy-MM-dd");
+                        Date date = dateclass.parse(strings[9]);
+                        int stimmen = Integer.parseInt(strings[9]);
+                        float bewertung = Float.parseFloat(strings[11]);
+                        new Film(id, strings[3], strings[5], strings[7], date, stimmen, bewertung);
+                        break;
+                    case 3:
+                        new Regisseur(id, strings[3]);
+                        break;
+                    case 4:
+                        int film_id = Integer.parseInt(strings[1]);
+
+
+
+                }
+
             }
+            System.out.println(entity);
 
             // Always close files.
             bufferedReader.close();
         }
-//        Exception Behandlung
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            fileName + "'");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-
+        FilmDatenbank projekt = new FilmDatenbank();
+        projekt.einlesen();
     }
 }

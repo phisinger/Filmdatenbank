@@ -2,12 +2,13 @@ public class Schauspieler {
 
     private int id;
     private String name;
+    private int[] filme;
 
-    public void Schauspieler(int id, String name)
-    {
+    public Schauspieler(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
 
     public int getId() {
         return id;
@@ -23,5 +24,13 @@ public class Schauspieler {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int[] getFilme() {
+        return filme;
+    }
+
+    public void setFilme(int[] filme) {
+        this.filme = filme;
     }
 }

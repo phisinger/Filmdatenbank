@@ -2,8 +2,9 @@ public class Regisseur {
 
     private int id;
     private String name;
+    private int[] filme;
 
-    public void Regisseur(int id, String name)
+    public Regisseur(int id, String name)
     {
         this.id = id;
         this.name = name;
@@ -25,4 +26,11 @@ public class Regisseur {
         this.name = name;
     }
 
+    public int[] getFilme() {
+        return filme;
+    }
+
+    public void setFilme(int[] filme) {
+        this.filme = filme;
+    }
 }
