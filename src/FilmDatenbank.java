@@ -48,14 +48,16 @@ public class FilmDatenbank {
                         float bewertung = Float.parseFloat(strings[11]);
                         new Film(id, strings[3], strings[5], strings[7], date, stimmen, bewertung);
                         break;
+//                        Regisseure
                     case 3:
                         new Regisseur(id, strings[3]);
                         break;
                     case 4:
                         int film_id = Integer.parseInt(strings[1]);
-
-
-
+                        //jetzt in jeden Schauspieler das Film-Array füllen
+                    case 5:
+                        int film_id1 = Integer.parseInt(strings[1]);
+                        //jetzt in jeden Regisseur das Film-Array füllen
                 }
 
             }
