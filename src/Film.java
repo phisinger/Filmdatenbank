@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Film {
@@ -9,8 +10,8 @@ public class Film {
     private Date erscheinungsdatum;
     private int stimmen;
     private float bewertung;
-    private int[] schauspieler;
-    private int[] regisseure;
+    private ArrayList<Integer> schauspieler = new ArrayList<Integer>();
+    private ArrayList<Integer> regisseure = new ArrayList<Integer>();
 
 
 //    Konstruktor
@@ -81,19 +82,19 @@ public class Film {
         this.stimmen = stimmen;
     }
 
-    public int[] getSchauspieler() {
-        return schauspieler;
+    public void addSchauspieler(int id) {
+        schauspieler.add(id);
     }
 
-    public void setSchauspieler(int[] schauspieler) {
-        this.schauspieler = schauspieler;
+    public void getSchauspieler(int key) {
+        schauspieler.get(key);
     }
 
-    public int[] getRegisseure() {
-        return regisseure;
+    public void addRegisseure(int id) {
+        regisseure.add(id);
     }
 
-    public void setRegisseure(int[] regisseure) {
-        this.regisseure = regisseure;
+    public void getRegisseure(int key) {
+        regisseure.get(key);
     }
 }

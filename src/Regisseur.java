@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class Regisseur {
 
     private int id;
     private String name;
-    private int[] filme;
+    private ArrayList<Integer> filme = new ArrayList<Integer>();
 
     public Regisseur(int id, String name)
     {
@@ -26,11 +28,11 @@ public class Regisseur {
         this.name = name;
     }
 
-    public int[] getFilme() {
-        return filme;
+    public void addFilme(int id) {
+        filme.add(id);
     }
 
-    public void setFilme(int[] filme) {
-        this.filme = filme;
+    public void getFilme(int key) {
+        filme.get(key);
     }
 }
