@@ -15,15 +15,12 @@ public class Film {
 
 
 //    Konstruktor
-    public Film(int id, String titel, String beschreibeung, String genre, Date erscheinungsdatum, int stimmen, float bewertung)
+    public Film(int id, String titel, String beschreibeung, String genre)
     {
         this.id = id;
         this.titel = titel;
         this.beschreibeung = beschreibeung;
         this.genre = genre;
-        this.erscheinungsdatum = erscheinungsdatum;
-        this.bewertung = bewertung;
-        this.stimmen = stimmen;
     }
 
     public String getGenre() {
