@@ -6,23 +6,21 @@ import java.util.HashMap;
 
 public class FilmDatenbank {
 
-    void einlesen() {
+    private void einlesen() {
 
 //        Name der der Filmdaten-Datei
         String fileName = "daten.db";
-        String line = null;
+        String line;
 
         try {
             //File lesen
             FileReader fileReader = new FileReader(fileName);
-
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             int entity = 0;
             HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
             HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
             HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
-
 
             while((line = bufferedReader.readLine()) != null) {
                 if(line.contains("New_Entity")) {
@@ -70,7 +68,7 @@ public class FilmDatenbank {
                             filme.get(id).setStimmen(stimmen);
                         }
 //                        Bewertung
-                        if (strings.length > 6 && !("\"".equals(strings[6]))) {
+                        if (!("\"".equals(strings[6]))) {
                             float bewertung = Float.parseFloat(strings[6].substring(0, strings[6].length() - 1));
                             filme.get(id).setBewertung(bewertung);
                         }
@@ -110,5 +108,21 @@ public class FilmDatenbank {
     public static void main(String[] args) {
         FilmDatenbank projekt = new FilmDatenbank();
         projekt.einlesen();
+
+        String suche;
+
+        if (args[0].contains("filmsuche")) {
+            suche = args[0].substring(args[0].indexOf('=')+1);
+            System.out.println(suche);
+        } else if (args[0].contains("schauspielersuche")) {
+            suche = args[0].substring(args[0].indexOf('=')+1);
+            System.out.println(suche);
+        } else if (args[0].contains("filmnetzwerk")) {
+            suche = args[0].substring(args[0].indexOf('=')+1);
+            System.out.println(suche);
+        } else if (args[0].contains("schauspielernetzwerk")) {
+            suche = args[0].substring(args[0].indexOf('=')+1);
+            System.out.println(suche);
+        }
     }
 }
