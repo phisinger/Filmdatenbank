@@ -33,6 +33,10 @@ public class Schauspieler {
         filme.add(id);
     }
 
+    public ArrayList getFilme() {
+        return filme;
+    }
+
     public void getFilme(int key) {
         filme.get(key);
     }

@@ -87,6 +87,14 @@ public class Film {
         schauspieler.get(key);
     }
 
+    public ArrayList getSchauspieler() {
+        return schauspieler;
+    }
+
+    public ArrayList getRegisseure() {
+        return regisseure;
+    }
+
     public void addRegisseure(int id) {
         regisseure.add(id);
     }

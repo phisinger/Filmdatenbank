@@ -1,12 +1,17 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 public class FilmDatenbank {
 
-    private void einlesen() {
+    HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
+    HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
+    HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+
+    protected void einlesen() {
 
 //        Name der der Filmdaten-Datei
         String fileName = "daten.db";
@@ -18,9 +23,7 @@ public class FilmDatenbank {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             int entity = 0;
-            HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
-            HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
-            HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+
 
             while((line = bufferedReader.readLine()) != null) {
                 if(line.contains("New_Entity")) {
@@ -92,7 +95,7 @@ public class FilmDatenbank {
                         filme.get(film_id1).addRegisseure(id);
                         break;
                     default:
-                        System.out.println("READING ERROR");
+                        System.err.println("READING ERROR");
                 }
             }
 //            System.out.println(entity);
@@ -104,25 +107,113 @@ public class FilmDatenbank {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        FilmDatenbank projekt = new FilmDatenbank();
-        projekt.einlesen();
-
-        String suche;
-
-        if (args[0].contains("filmsuche")) {
-            suche = args[0].substring(args[0].indexOf('=')+1);
-            System.out.println(suche);
-        } else if (args[0].contains("schauspielersuche")) {
-            suche = args[0].substring(args[0].indexOf('=')+1);
-            System.out.println(suche);
-        } else if (args[0].contains("filmnetzwerk")) {
-            suche = args[0].substring(args[0].indexOf('=')+1);
-            System.out.println(suche);
-        } else if (args[0].contains("schauspielernetzwerk")) {
-            suche = args[0].substring(args[0].indexOf('=')+1);
-            System.out.println(suche);
+//    Filme werden aus der entsprechend Hashmap gesucht
+    protected void filmSuche(String suche) {
+        for (Film value : filme.values()) {
+            if (value.getTitel().toLowerCase().contains(suche.toLowerCase())) {
+                System.out.println(value.getId() + ", " + value.getTitel() + ", " + value.getBeschreibeung() + ", " + value.getGenre() + ", " + value.getStimmen() + ", " + value.getBewertung());
+            }
         }
     }
+
+//    Schauspieler werden aus der entsprechenden Hashmap gesucht
+    protected void schauspielerSuche(String suche) {
+        for (Schauspieler value : schauspieler.values()) {
+            if (value.getName().toLowerCase().contains(suche.toLowerCase())) {
+                System.out.println(value.getId() + ", " + value.getName());
+            }
+        }
+    }
+
+//    @Override
+//    public String toString() {
+//        return  "Schauspieler=" + schauspieler +
+//                ", Film=" + filme +
+//                ", Regisseur=" + regisseure;
+//    }
+
+    protected void filmNetzwerk(int suche) {
+//        StringBuffer anlegen
+        StringBuffer schauspielerBuffer = new StringBuffer("Schauspieler: ");
+        StringBuffer filmeBuffer = new StringBuffer("Filme: ");
+//        Hilfs ArrayLists anlegen
+        ArrayList<Integer> actorList = new ArrayList<Integer>();
+        ArrayList<Integer> filmList;
+//        Den gesuchten Film in der HashMap suchen
+        for (Film value : filme.values()) {
+            if (value.getId() == suche) {
+//                Die Schauspieler für den gesuchten Film zwischenspeichern
+                actorList = value.getSchauspieler();
+//                Die Schauspieler aus der HashMap suchen
+                for(int actorId : actorList) {
+                    for (Schauspieler wert : schauspieler.values()) {
+                        if (actorId == wert.getId()) {
+                            filmList = wert.getFilme();
+//                            Namen der Schauspieler speichern
+                            schauspielerBuffer.append(wert.getName() + ", ");
+//                            Die Filme im Objekt "schauspieler x" nehmen...
+                            for (int filmId : filmList) {
+//                                ...und Namen suchen
+                                for (Film filme : filme.values()) {
+                                    if (filme.getId() == filmId && (filmeBuffer.indexOf(filme.getTitel()) == -1)) {
+                                        filmeBuffer.append(filme.getTitel() + ", ");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+//        Strings aus den Buffern generieren
+        String schauspieler = new String(schauspielerBuffer);
+        String filme = new String(filmeBuffer);
+
+        System.out.println(schauspieler.substring(0,schauspieler.length()-2));
+        System.out.println(filme.substring(0,filme.length()-2));
+    }
+
+
+    protected void schauspielerNetzwerk(int suche) {
+//        StringBuffer anlegen
+        StringBuffer schauspielerBuffer = new StringBuffer("Schauspieler: ");
+        StringBuffer filmeBuffer = new StringBuffer("Filme: ");
+//        Hilfs ArrayLists anlegen
+        ArrayList<Integer> actorList = new ArrayList<Integer>();
+        ArrayList<Integer> filmList;
+//        Den gesuchten Schauspieler in der HashMap suchen
+        for (Schauspieler value : schauspieler.values()) {
+            if (value.getId() == suche) {
+//                Die Filme für den gesuchten Schauspieler zwischenspeichern
+                filmList = value.getFilme();
+//                Die Filme aus der HashMap suchen
+                for(int filmId : filmList) {
+                    for (Film wert : filme.values()) {
+                        if (filmId == wert.getId()) {
+                            actorList = wert.getSchauspieler();
+//                            Namen der Filme speichern
+                            filmeBuffer.append(wert.getTitel() + ", ");
+//                            Die Schauspieler im Objekt "Film x" nehmen...
+                            for (int actorId : actorList) {
+//                                ...und Namen suchen
+                                for (Schauspieler schauspieler : schauspieler.values()) {
+                                    if (schauspieler.getId() == actorId && (schauspielerBuffer.indexOf(schauspieler.getName()) == -1)) {
+                                        schauspielerBuffer.append(schauspieler.getName() + ", ");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+//        Strings aus den Buffern generieren
+        String schauspieler = new String(schauspielerBuffer);
+        String filme = new String(filmeBuffer);
+
+        System.out.println(filme.substring(0,filme.length()-2));
+        System.out.println(schauspieler.substring(0,schauspieler.length()-2));
+
+    }
+
 }
