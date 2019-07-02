@@ -22,6 +22,10 @@ public class Film {
         this.beschreibeung = beschreibeung;
         this.genre = genre;
     }
+    @Override
+    public String toString(){
+        return (id + ", " + titel + ", " + beschreibeung + ", " + genre + ", " + stimmen + ", " + bewertung);
+    }
 
     public String getGenre() {
         return genre;
