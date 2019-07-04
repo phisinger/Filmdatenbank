@@ -134,6 +134,7 @@ public class FilmDatenbank {
 
     protected void filmNetzwerk(int suche) {
 //        StringBuffer anlegen
+        String suchWort;
         StringBuffer schauspielerBuffer = new StringBuffer("Schauspieler: ");
         StringBuffer filmeBuffer = new StringBuffer("Filme: ");
 //        Hilfs ArrayLists anlegen
@@ -142,6 +143,7 @@ public class FilmDatenbank {
 //        Den gesuchten Film in der HashMap suchen
         for (Film value : filme.values()) {
             if (value.getId() == suche) {
+                suchWort = value.getTitel();
 //                Die Schauspieler für den gesuchten Film zwischenspeichern
                 actorList = value.getSchauspieler();
 //                Die Schauspieler aus der HashMap suchen
@@ -155,7 +157,7 @@ public class FilmDatenbank {
                             for (int filmId : filmList) {
 //                                ...und Namen suchen
                                 for (Film filme : filme.values()) {
-                                    if (filme.getId() == filmId && (filmeBuffer.indexOf(filme.getTitel()) == -1)) {
+                                    if (filme.getId() == filmId && (filmeBuffer.indexOf(filme.getTitel()) == -1) && !(filme.getTitel() == suchWort)) {
                                         filmeBuffer.append(filme.getTitel() + ", ");
                                     }
                                 }
@@ -175,6 +177,7 @@ public class FilmDatenbank {
 
 
     protected void schauspielerNetzwerk(int suche) {
+        String suchWort;
 //        StringBuffer anlegen
         StringBuffer schauspielerBuffer = new StringBuffer("Schauspieler: ");
         StringBuffer filmeBuffer = new StringBuffer("Filme: ");
@@ -184,6 +187,7 @@ public class FilmDatenbank {
 //        Den gesuchten Schauspieler in der HashMap suchen
         for (Schauspieler value : schauspieler.values()) {
             if (value.getId() == suche) {
+                suchWort = value.getName();
 //                Die Filme für den gesuchten Schauspieler zwischenspeichern
                 filmList = value.getFilme();
 //                Die Filme aus der HashMap suchen
@@ -197,7 +201,7 @@ public class FilmDatenbank {
                             for (int actorId : actorList) {
 //                                ...und Namen suchen
                                 for (Schauspieler schauspieler : schauspieler.values()) {
-                                    if (schauspieler.getId() == actorId && (schauspielerBuffer.indexOf(schauspieler.getName()) == -1)) {
+                                    if (schauspieler.getId() == actorId && (schauspielerBuffer.indexOf(schauspieler.getName()) == -1 && !(schauspieler.getName() == suchWort))) {
                                         schauspielerBuffer.append(schauspieler.getName() + ", ");
                                     }
                                 }

@@ -20,7 +20,8 @@ public class main {
             projekt.filmNetzwerk(Integer.parseInt(suche));
         } else if (args[0].contains("schauspielernetzwerk")) {
             suche = args[0].substring(args[0].indexOf('=')+1);
-            System.out.println(suche);
+//            System.out.println(suche);
+            projekt.schauspielerNetzwerk(Integer.parseInt(suche));
         }
     }
 }
