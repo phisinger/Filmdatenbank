@@ -12,6 +12,11 @@ public class Schauspieler {
 
     }
 
+    @Override
+    public String toString() {
+        return (id + ", " + name);
+    }
+
 
     public int getId() {
         return id;

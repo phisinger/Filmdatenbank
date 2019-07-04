@@ -12,6 +12,11 @@ public class Regisseur {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return (id + ", " + name);
+    }
+
     public int getId() {
         return id;
     }

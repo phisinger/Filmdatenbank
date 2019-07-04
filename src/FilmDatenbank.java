@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public class FilmDatenbank {
 
-    HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
-    HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
-    HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+    private HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
+    private HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
+    private HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
 
     protected void einlesen() {
 
@@ -109,28 +109,34 @@ public class FilmDatenbank {
     }
 //    Filme werden aus der entsprechend Hashmap gesucht
     protected void filmSuche(String suche) {
+//        ArrayList zum einfacheren Testen
+        ArrayList<String> output = new ArrayList<String>();
         for (Film value : filme.values()) {
+//            Der Schauspieler wird gesucht...
             if (value.getTitel().toLowerCase().contains(suche.toLowerCase())) {
-                System.out.println(value.getId() + ", " + value.getTitel() + ", " + value.getBeschreibeung() + ", " + value.getGenre() + ", " + value.getStimmen() + ", " + value.getBewertung());
+//              ...und ausgegeben.
+                output.add(value.toString());
+                System.out.println(value.toString());
             }
         }
     }
 
 //    Schauspieler werden aus der entsprechenden Hashmap gesucht
-    protected void schauspielerSuche(String suche) {
+    protected ArrayList<String> schauspielerSuche(String suche) {
+//        ArrayList zum einfacheren Testen
+        ArrayList<String> output = new ArrayList<String>();
+//        Der Schauspieler wird gesucht...
         for (Schauspieler value : schauspieler.values()) {
             if (value.getName().toLowerCase().contains(suche.toLowerCase())) {
-                System.out.println(value.getId() + ", " + value.getName());
+//                ...und ausgegeben.
+                output.add(value.toString());
+                System.out.println(value.toString());
             }
         }
+        return output;
     }
 
-//    @Override
-//    public String toString() {
-//        return  "Schauspieler=" + schauspieler +
-//                ", Film=" + filme +
-//                ", Regisseur=" + regisseure;
-//    }
+
 
     protected void filmNetzwerk(int suche) {
 //        StringBuffer anlegen
