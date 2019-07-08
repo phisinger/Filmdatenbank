@@ -1,16 +1,11 @@
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-
+//Testklasse mit fünf Tests
 public class testFilmDatenbank extends FilmDatenbank{
 
-    FilmDatenbank tester = new FilmDatenbank();
+    private FilmDatenbank tester = new FilmDatenbank();
 
 //    Filmsuche test
     @Test
@@ -39,9 +34,9 @@ public class testFilmDatenbank extends FilmDatenbank{
     @Test
     public void testeinlesen() {
         tester.einlesen();
-        Assert.assertEquals(9124,filme.size());
-        Assert.assertEquals(18159, schauspieler.size());
-        Assert.assertEquals(4339, regisseure.size());
+        Assert.assertEquals(18159, tester.schauspielerSize());
+        Assert.assertEquals(9124, tester.filmeSize());
+        Assert.assertEquals(4339, tester.regisseureSize());
         System.out.println("\n----------------------------------");
         System.out.println("Einlesen erfolgreich");
     }
@@ -50,7 +45,7 @@ public class testFilmDatenbank extends FilmDatenbank{
     @Test
     public void testSchauspielerNetzwerk() {
         tester.einlesen();
-        String output[] = new String[2];
+        String[] output;
         output = tester.schauspielerNetzwerk(17639);
         Assert.assertTrue(output[0].contains("Leaving Las Vegas"));
 //        Testen, ob die richtige Anzahl an Filmen ausgeben wird
@@ -81,7 +76,7 @@ public class testFilmDatenbank extends FilmDatenbank{
     @Test
     public void testFilmNetzwerk() {
         tester.einlesen();
-        String output[] = new String[2];
+        String[] output;
         output = tester.filmNetzwerk(5313);
         Assert.assertTrue(output[0].contains("Who's Afraid of Virginia Woolf?"));
 //        Testen, ob die richtige Anzahl an Filmen ausgeben wird

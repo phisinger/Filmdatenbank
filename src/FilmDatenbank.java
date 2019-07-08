@@ -7,9 +7,21 @@ import java.util.HashMap;
 
 public class FilmDatenbank {
 
-    protected HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
-    HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
-    HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+    private HashMap<Integer, Film> filme = new HashMap<>();
+    private HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
+    private HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+
+    public int filmeSize() {
+        return filme.size();
+    }
+
+    public int schauspielerSize() {
+        return schauspieler.size();
+    }
+
+    public int regisseureSize() {
+        return regisseure.size();
+    }
 
     protected void einlesen() {
 
@@ -110,10 +122,12 @@ public class FilmDatenbank {
             e.printStackTrace();
         }
     }
+
+
 //    Filme werden aus der entsprechend Hashmap gesucht
     protected ArrayList<String> filmSuche(String suche) {
 //        ArrayList zum einfacheren Testen
-        ArrayList<String> output = new ArrayList<String>();
+        ArrayList<String> output = new ArrayList<>();
         for (Film value : filme.values()) {
 //            Der Schauspieler wird gesucht...
             if (value.getTitel().toLowerCase().contains(suche.toLowerCase())) {
@@ -128,7 +142,7 @@ public class FilmDatenbank {
 //    Schauspieler werden aus der entsprechenden Hashmap gesucht
     protected ArrayList<String> schauspielerSuche(String suche) {
 //        ArrayList zum einfacheren Testen
-        ArrayList<String> output = new ArrayList<String>();
+        ArrayList<String> output = new ArrayList<>();
 //        Der Schauspieler wird gesucht...
         for (Schauspieler value : schauspieler.values()) {
             if (value.getName().toLowerCase().contains(suche.toLowerCase())) {
@@ -141,7 +155,7 @@ public class FilmDatenbank {
     }
 
 
-
+//  Netzwerk des Films mit Schauspielern und Filmen
     protected String[] filmNetzwerk(int suche) {
 //        StringBuffer anlegen
         String suchWort;
@@ -183,6 +197,7 @@ public class FilmDatenbank {
     }
 
 
+//  Netzwerk des Films mit Filmen und Schauspielern
     protected String[] schauspielerNetzwerk(int suche) {
         String suchWort;
 //        StringBuffer anlegen
