@@ -15,7 +15,7 @@ public class Schauspieler {
     }
 
 
-//    Getter und Setter und eine ToString-Funktion für die Aufgabe
+//    Getter und Setter und eine ToString-Funktion für die Ausgabe
     @Override
     public String toString() {
         return (id + ", " + name);

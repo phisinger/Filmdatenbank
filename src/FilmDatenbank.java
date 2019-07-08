@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class FilmDatenbank {
 
     private HashMap<Integer, Film> filme = new HashMap<>();
-    private HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
-    private HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+    private HashMap<Integer, Schauspieler> schauspieler = new HashMap<>();
+    private HashMap<Integer, Regisseur> regisseure = new HashMap<>();
 
     public int filmeSize() {
         return filme.size();
