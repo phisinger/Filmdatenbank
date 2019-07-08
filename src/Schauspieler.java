@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+//Die Schauspieler-Klasse mit den Attributen ID, Name und einer ArrayList, in der die Filme stehen,
+//an denen der Schauspieler mitgarbeitet hat.
 public class Schauspieler {
 
     private int id;
@@ -12,6 +14,8 @@ public class Schauspieler {
 
     }
 
+
+//    Getter und Setter und eine ToString-Funktion für die Aufgabe
     @Override
     public String toString() {
         return (id + ", " + name);

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+//Die Regisseurklasse mit den Attributen ID, Name und einer ArrayList, in der die Filme stehen,
+//an denen der Regisseur mitgarbeitet hat.
 public class Regisseur {
 
     private int id;
@@ -12,6 +14,8 @@ public class Regisseur {
         this.name = name;
     }
 
+
+//    Getter und Setter und eine ToString-Funktion für die Aufgabe
     @Override
     public String toString() {
         return (id + ", " + name);

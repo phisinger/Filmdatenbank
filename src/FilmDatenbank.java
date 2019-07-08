@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public class FilmDatenbank {
 
-    private HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
-    private HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
-    private HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
+    protected HashMap<Integer, Film> filme = new HashMap<Integer, Film>();
+    HashMap<Integer, Schauspieler> schauspieler = new HashMap<Integer, Schauspieler>();
+    HashMap<Integer, Regisseur> regisseure = new HashMap<Integer, Regisseur>();
 
     protected void einlesen() {
 
@@ -24,15 +24,15 @@ public class FilmDatenbank {
 
             int entity = 0;
 
-
+//          Datenobjekt erkennen
             while((line = bufferedReader.readLine()) != null) {
                 if(line.contains("New_Entity")) {
                     entity++;
                     continue;
                 }
 
+//                Array, um Daten gewünscht aufzuteilen
                 String[] strings = new String[0];
-
                 if (entity != 2) {
                     strings = line.split("\"");
                     for (int i = 1; i < strings.length; i++) {
@@ -42,7 +42,7 @@ public class FilmDatenbank {
                 }
 
 
-
+//                Switch zur richtigen Verarbeitung der Datenobjekte
                 switch(entity) {
 //                  Actors
                     case 1:
@@ -82,33 +82,36 @@ public class FilmDatenbank {
                         id = Integer.parseInt(strings[1]);
                         regisseure.put(id, new Regisseur(id, strings[3]));
                         break;
+//                  Verbindung zwischen Film und Schauspieler
                     case 4:
                         id = Integer.parseInt(strings[1]);
                         int film_id = Integer.parseInt(strings[3]);
                         schauspieler.get(id).addFilme(film_id);
                         filme.get(film_id).addSchauspieler(id);
                         break;
+//                    Verbindung zwischen Film und Regisseur
                     case 5:
                         id = Integer.parseInt(strings[1]);
                         int film_id1 = Integer.parseInt(strings[3]);
                         regisseure.get(id).addFilme(film_id1);
                         filme.get(film_id1).addRegisseure(id);
                         break;
+//                    Error falls etwas schief läuft
                     default:
                         System.err.println("READING ERROR");
                 }
             }
-//            System.out.println(entity);
 
-            // Always close files.
+//            File schließen
             bufferedReader.close();
         }
+//        Alle Exception auffangen
         catch(Exception e) {
             e.printStackTrace();
         }
     }
 //    Filme werden aus der entsprechend Hashmap gesucht
-    protected void filmSuche(String suche) {
+    protected ArrayList<String> filmSuche(String suche) {
 //        ArrayList zum einfacheren Testen
         ArrayList<String> output = new ArrayList<String>();
         for (Film value : filme.values()) {
@@ -119,6 +122,7 @@ public class FilmDatenbank {
                 System.out.println(value.toString());
             }
         }
+        return output;
     }
 
 //    Schauspieler werden aus der entsprechenden Hashmap gesucht
@@ -138,7 +142,7 @@ public class FilmDatenbank {
 
 
 
-    protected void filmNetzwerk(int suche) {
+    protected String[] filmNetzwerk(int suche) {
 //        StringBuffer anlegen
         String suchWort;
         StringBuffer schauspielerBuffer = new StringBuffer("Schauspieler: ");
@@ -173,16 +177,13 @@ public class FilmDatenbank {
                 }
             }
         }
-//        Strings aus den Buffern generieren
-        String schauspieler = new String(schauspielerBuffer);
-        String filme = new String(filmeBuffer);
-
-        System.out.println(schauspieler.substring(0,schauspieler.length()-2));
-        System.out.println(filme.substring(0,filme.length()-2));
+//        Ausgabefunktion aufrufen
+        String output[] = ausgabe(filmeBuffer, schauspielerBuffer, false);
+        return output;
     }
 
 
-    protected void schauspielerNetzwerk(int suche) {
+    protected String[] schauspielerNetzwerk(int suche) {
         String suchWort;
 //        StringBuffer anlegen
         StringBuffer schauspielerBuffer = new StringBuffer("Schauspieler: ");
@@ -207,7 +208,7 @@ public class FilmDatenbank {
                             for (int actorId : actorList) {
 //                                ...und Namen suchen
                                 for (Schauspieler schauspieler : schauspieler.values()) {
-                                    if (schauspieler.getId() == actorId && (schauspielerBuffer.indexOf(schauspieler.getName()) == -1 && !(schauspieler.getName() == suchWort))) {
+                                    if (schauspieler.getId() == actorId && schauspielerBuffer.indexOf(schauspieler.getName()) == -1 && !(schauspieler.getName() == suchWort)) {
                                         schauspielerBuffer.append(schauspieler.getName() + ", ");
                                     }
                                 }
@@ -217,12 +218,34 @@ public class FilmDatenbank {
                 }
             }
         }
+//        Ausgabefunktion aufrufen
+        String output[] = ausgabe(filmeBuffer, schauspielerBuffer, true);
+        return output;
+
+    }
+
+//    Funktion zur ausgabe der Netzwerke und zur Generierung des Test-Arrays
+    protected String[] ausgabe(StringBuffer filmeBuffer, StringBuffer schauspielerBuffer, boolean SchauspielerNetzwerk) {
 //        Strings aus den Buffern generieren
         String schauspieler = new String(schauspielerBuffer);
         String filme = new String(filmeBuffer);
 
-        System.out.println(filme.substring(0,filme.length()-2));
-        System.out.println(schauspieler.substring(0,schauspieler.length()-2));
+//        Die geforderte Reinfolge einhalten
+        if(SchauspielerNetzwerk) {
+            System.out.println(filme.substring(0,filme.length()-2));
+            System.out.println(schauspieler.substring(0,schauspieler.length()-2));
+        }else {
+            System.out.println(schauspieler.substring(0,schauspieler.length()-2));
+            System.out.println(filme.substring(0,filme.length()-2));
+        }
+
+//        Strings in ein Array Speichern, und zurückgeben, um zu testen.
+        String output[] = new String[2];
+        output[0] = filme;
+        output[1] = schauspieler;
+        return output;
+
+
 
     }
 

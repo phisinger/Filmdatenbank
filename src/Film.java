@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+//Die Filmklassse, die ID, Titel, die weiteren Details und zwei ArrayLists für
+// Schauspieler und Regisseure
 public class Film {
 
     private int id;
@@ -22,6 +24,8 @@ public class Film {
         this.beschreibeung = beschreibeung;
         this.genre = genre;
     }
+
+    //    Getter und Setter und eine ToString-Funktion für die Aufgabe
     @Override
     public String toString(){
         return (id + ", " + titel + ", " + beschreibeung + ", " + genre + ", " + stimmen + ", " + bewertung);
