@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="482.0" y="0.0">FilmDatenbank</node>
+    <node x="0.0" y="0.0">Film</node>
+    <node x="0.0" y="757.0">testFilmDatenbank</node>
+    <node x="257.0" y="757.0">main</node>
+    <node x="265.0" y="0.0">Schauspieler</node>
+    <node x="846.0" y="0.0">Regisseur</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.2000000000000002" x="392.0" y="13.999999999999998" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -3,11 +3,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 //Testklasse mit fünf Tests
-public class testFilmDatenbank extends FilmDatenbank{
+public class testFilmDatenbank {
 
     private FilmDatenbank tester = new FilmDatenbank();
 
 //    Filmsuche test
+//    es wird getestet, ob der richtige Film ausgegeben wird und ob die Anzahl der Ausgabe stimmt.
     @Test
     public void testFilmsuche() {
         tester.einlesen();
@@ -20,6 +21,7 @@ public class testFilmDatenbank extends FilmDatenbank{
 
 
 //    Schauspielersuche test
+//    es wird getestet, ob der richtige Schauspieler und die richtige Anzahl ausgegeben wird.
     @Test
     public void testSchauspielersuche() {
         tester.einlesen();
@@ -31,6 +33,7 @@ public class testFilmDatenbank extends FilmDatenbank{
     }
 
 //    Einlesen test
+//    Die Anzahl der Elemente in der HashMap wird getestet
     @Test
     public void testeinlesen() {
         tester.einlesen();
@@ -47,6 +50,7 @@ public class testFilmDatenbank extends FilmDatenbank{
         tester.einlesen();
         String[] output;
         output = tester.schauspielerNetzwerk(17639);
+//        Test, ob der richtige Filmausgegeben wird
         Assert.assertTrue(output[0].contains("Leaving Las Vegas"));
 //        Testen, ob die richtige Anzahl an Filmen ausgeben wird
         int anzahlkomma = 0;
@@ -78,6 +82,7 @@ public class testFilmDatenbank extends FilmDatenbank{
         tester.einlesen();
         String[] output;
         output = tester.filmNetzwerk(5313);
+//        Testen, ob der richtige Film gesucht wird
         Assert.assertTrue(output[0].contains("Who's Afraid of Virginia Woolf?"));
 //        Testen, ob die richtige Anzahl an Filmen ausgeben wird
         int anzahlkomma = 0;
